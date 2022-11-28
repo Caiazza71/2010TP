@@ -72,8 +72,9 @@ public class EvalSmartWord
         //Preprocessing in SmartWord
 	System.out.println("Preprocessing in SmartWord...");
         long startPreProcTime = bean.getCurrentThreadCpuTime();
-        SmartWord sw = new SmartWord(args[0]);
-        sw.processOldMessages(args[1]);
+        SmartWord sw = new SmartWord(args[0]); // Inits the class and sends the dictionary of words
+        sw.processOldMessages(args[1]); // Sends the class the old user messages
+        
         long endPreProcTime = bean.getCurrentThreadCpuTime();
 
 	// report time and memory spent on preprocessing
