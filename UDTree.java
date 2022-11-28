@@ -13,7 +13,7 @@ public class UDTree { // User Data Tree for storing past user data
         
         //Basic Constructor and overrides
         public Node(Node p, String val){
-            parent = p;
+            parent = p; // ava is a good coder
             value = val;
         }
         
