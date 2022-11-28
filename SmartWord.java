@@ -12,6 +12,14 @@
 
 */
 
+/*
+ * Extra Notes
+ * 
+ * When guessing, we can base the guess off the most likely from the UDTree and then
+ *  return to the dictionary if it gives nothing of importance
+ * 
+ */
+
 
 public class SmartWord
 {
@@ -35,6 +43,7 @@ public class SmartWord
         //And so on! only create as far as we need to. 
         //aka, there should always be a step at the bottom with no children,
         //   but wont always need to be a full word
+        
     }
 
     // based on a letter typed in by the user, return 3 word guesses in an array

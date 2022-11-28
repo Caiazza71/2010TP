@@ -2,7 +2,7 @@
 
 public class UDTree { // User Data Tree for storing past user data
     
-    public class Node implements Comparable{
+    public class Node implements Comparable{ // !FIX 
         //giving each node access to the parent and all its children
         Node parent = null;
         Node[] children = new Node[26];
@@ -11,6 +11,7 @@ public class UDTree { // User Data Tree for storing past user data
         String value = null;
         int freq = 0;
         
+        //Basic Constructor and overrides
         public Node(Node p, String val){
             parent = p;
             value = val;
