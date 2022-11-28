@@ -33,7 +33,10 @@ public class UDTree { // User Data Tree for storing past user data
             //we end on the parent and use it in node declaration.
     }
     
-    //Getting all of the children of the given tree
+    //Getting all the children of the current input with the highest freqency only return a list with
+    //  either a minimum of three or all that have the same freqency of guess. meaning it will eventually have to 
+    //  literally just guess! oops
+    
     public void returnChildren(){}
     
     public void find(){}
