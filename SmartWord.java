@@ -1,11 +1,11 @@
 /*
 
-  Authors (group members):
-  Email addresses of group members:
-  Group name:
+  Authors (group members): Maxwell Caiazza, Taylor Carlson, Ava Crocker
+  Email addresses of group members: mcaiazza2021@fit.edu, tcarlson2021@fit.edu, acrocker2021@fit.edu
+  Group name: Node Wizards
 
-  Course:
-  Section:
+  Course: Data Structures and Algorithms, CSE 2010
+  Section: Section 3
 
   Description of the overall algorithm:
 
@@ -27,6 +27,14 @@ public class SmartWord
     public void processOldMessages(String oldMessageFile)
     {
         //This will be our LikelyHood.java file
+        
+        //Store in a tree??
+        //Make it super easy to go down the list of words
+        //              A
+        //      AA  AB  AC  AD  AE
+        //And so on! only create as far as we need to. 
+        //aka, there should always be a step at the bottom with no children,
+        //   but wont always need to be a full word
     }
 
     // based on a letter typed in by the user, return 3 word guesses in an array
