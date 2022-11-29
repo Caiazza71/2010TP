@@ -78,11 +78,26 @@ public class SmartWord
     // a.         true                correct word
     // b.         false               null
     // c.         false               correct word
-    public void feedback(boolean isCorrectGuess, String correctWord)        
+    public void feedback(boolean isCorrectGuess, String correctWord, String[] guesses)        
     {
-        if (isCorrectGuess == true) {
-
+        for (int i = 0; i < guesses.length; i++) {
+            if (guesses[i].equals(correctWord)) {
+                isCorrectGuess = true;
+            }
+            else {
+                isCorrectGuess = false;
+            }
         }
+
+        if (isCorrectGuess = false) {
+            // If (word is not complete)
+            correctWord = null;
+            // Then we run the program again with another character added to the word
+
+            // If the word is complete
+            // Then the program is over and that is the correctWord
+        }
+
 // heyyyyyyyyyyy
     }
 
