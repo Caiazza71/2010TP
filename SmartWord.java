@@ -50,8 +50,17 @@ public class SmartWord
     // letter: letter typed in by the user
     // letterPosition:  position of the letter in the word, starts from 0
     // wordPosition: position of the word in a message, starts from 0
-    public String[] guess(char letter,  int letterPosition, int wordPosition)
+    public String[] guess(char letter,  int letterPosition, int wordPosition, String[] likelyWords)
     {
+        int length = 0;
+        String[] guesses = new String[3];
+        // If the string array likelywords are given in greatest to lowest
+        while (length < 3) {
+            for (int i = 0; i < guesses.length; i++) {
+                guesses[i] = likelyWords[i];
+                length++;
+            }
+        }
 	
         return guesses;
     }
@@ -71,6 +80,9 @@ public class SmartWord
     // c.         false               correct word
     public void feedback(boolean isCorrectGuess, String correctWord)        
     {
+        if (isCorrectGuess == true) {
+
+        }
 // heyyyyyyyyyyy
     }
 
