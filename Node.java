@@ -1,9 +1,10 @@
 import java.util.HashMap;
 
 public class Node {
-    char initialC;
+    
     Node above;
     HashMap<Character, Node> below = new HashMap<Character, Node>();
+    char initialC;
     boolean bottom;
 
     public Node() {}

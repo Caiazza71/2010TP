@@ -13,7 +13,7 @@ public class Trie
     Node prefixRoot;
     String curPrefix;
 
-    public Trie()
+    public Trie() 
     {
         root = new Node();
         words  = new ArrayList<String>();
@@ -51,12 +51,7 @@ public class Trie
                 t.bottom = true;    
         }
     }
-    public boolean search(String word)
-    {
-        Node t = searchNode(word);
-        if(t != null && t.bottom){return true;}
-        else{return false;}
-    }
+
 
     // Returns if there is any word in the trie
     // that starts with the given prefix.
@@ -89,7 +84,6 @@ public class Trie
 
 
     ///////////////////////////
-
 
   void wordsFinderTraversal(Node node, int offset) 
   {
@@ -143,7 +137,6 @@ public class Trie
         } 
 
   }
-
 
     void displayFoundWords()
     {
