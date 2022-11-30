@@ -1,9 +1,5 @@
 
 import java.util.*;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-
 
 public class Trie {
     public Node root, start;
@@ -104,35 +100,5 @@ public class Trie {
         for(int i = 0;i < dictionary.size(); i++) {
           System.out.println(dictionary.get(i).replaceAll("[^a-zA-Z]",  " ").split(" ")[0]);
         } 
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        Trie tree;
-        tree = new Trie();  
-        //Trie oldMess;
-        //oldMess = new Trie();
-        Scanner scan = new Scanner(new File(args[0]));
-        //Scanner scans = new Scanner(new File(args[1])); 
-        Scanner scanner = new Scanner(System.in);
-
-        
-
-        while(scan.hasNext()) {
-            String word = scan.next();
-            tree.insert(word);
-        }
-
-       
-        String input = scanner.next();
-        /* 
-        if(oldMess.begin(input)==true) {
-        Node phrase = oldMess.searchTrie(input);
-        oldMess.find(phrase, 0);
-        oldMess.print(); 
-        }
-        */
-
-        // Return list of words to tree to find the one with the greatest value
-        scanner.close();
     }
 }

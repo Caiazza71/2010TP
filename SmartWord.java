@@ -8,8 +8,6 @@
   Section: Section 3
 
   Description of the overall algorithm:
-
-
 */
 
 /*
