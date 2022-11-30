@@ -109,28 +109,28 @@ public class Trie {
     public static void main(String[] args) throws FileNotFoundException {
         Trie tree;
         tree = new Trie();  
-        Trie oldMess;
-        oldMess = new Trie();
+        //Trie oldMess;
+        //oldMess = new Trie();
         Scanner scan = new Scanner(new File(args[0]));
-        Scanner scans = new Scanner(new File(args[1])); 
+        //Scanner scans = new Scanner(new File(args[1])); 
         Scanner scanner = new Scanner(System.in);
+
+        
 
         while(scan.hasNext()) {
             String word = scan.next();
             tree.insert(word);
         }
 
-        while(scans.hasNext()) {
-            String word = scans.next();
-            oldMess.insert(word);
-        }
+       
         String input = scanner.next();
-
+        /* 
         if(oldMess.begin(input)==true) {
         Node phrase = oldMess.searchTrie(input);
         oldMess.find(phrase, 0);
         oldMess.print(); 
         }
+        */
 
         // Return list of words to tree to find the one with the greatest value
         scanner.close();
