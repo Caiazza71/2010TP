@@ -1,10 +1,7 @@
-
-// CHANGEEE STUFFFF
 import java.util.*;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-
 
 public class Trie {
     Node starter;
@@ -43,7 +40,6 @@ public class Trie {
                 hello.bottom = true;    
         }
     }
-
 
     // Returns if there is any word in the trie
     // that starts with the given prefix.
@@ -92,52 +88,45 @@ public class Trie {
             }
             list.add(s);
         }
+        ArrayList<Character> arr = new ArrayList<Character>();
+        Set<Character> list = hello.below.keySet();
+        Iterator runner = list.iterator();
 
-         Set<Character> kset = hello.below.keySet();
-         //println(node.c); println(node.bottom);println(kset);
-         Iterator itr = kset.iterator();
-         ArrayList<Character> aloc = new ArrayList<Character>();
-
-        while(itr.hasNext()) {
-            Character ch = (Character)itr.next();  
-            aloc.add(ch);
-            //println(ch);
+        while (runner.hasNext()) {
+            Character letter = (Character)runner.next();  
+            arr.add(letter);
         } 
 
-     // here you can play with the order of the below
-
-        for( int i=0;i<aloc.size();i++) {
-            find(hello.below.get(aloc.get(i)), num + 2);
+        for( int i = 0;i < arr.size(); i++) {
+            find(hello.below.get(arr.get(i)), num + 2);
         } 
-  }
+    }
 
-    void displayFoundWords() {
+    void print() {
         System.out.println("_______________");
-        for(int i=0;i<list.size();i++)
-        {
+        for(int i = 0;i < list.size(); i++) {
           System.out.println(list.get(i));
         } 
         System.out.println("________________");
-
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        Trie prefixTree;
-        prefixTree = new Trie();  
+        Trie tree;
+        tree = new Trie();  
         Scanner scan = new Scanner(new File(args[0]));
         //Scanner scans = new Scanner(new File(args[1]));
         Scanner scanner = new Scanner(System.in);
-
+        
         while(scan.hasNext()) {
             String word = scan.next();
-            prefixTree.insert(word);
+            tree.insert(word);
         }
         String input = scanner.next();
 
-        if( prefixTree.begin(input)==true) {
-            Node tn = prefixTree.searchTrie(input);
-            prefixTree.find(tn,0);
-            prefixTree.displayFoundWords(); 
+        if( tree.begin(input)==true) {
+            Node tn = tree.searchTrie(input);
+            tree.find(tn,0);
+            tree.print(); 
         }
     }
 }
