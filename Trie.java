@@ -102,7 +102,7 @@ public class Trie {
 
     public void print() {
         for(int i = 0;i < dictionary.size(); i++) {
-          System.out.println(dictionary.get(i));
+          System.out.println(dictionary.get(i).replaceAll("[^a-zA-Z]",  " ").split(" ")[0]);
         } 
     }
 
@@ -136,4 +136,3 @@ public class Trie {
         scanner.close();
     }
 }
-
