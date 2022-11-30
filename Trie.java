@@ -23,11 +23,8 @@ public class Trie
     public void insert(String word) 
     {
         HashMap<Character, Node> below = root.below;
-
         Node crntabove;
-
         crntabove = root;
-
         //cur below above = root
 
         for(int i=0; i<word.length(); i++)
@@ -141,7 +138,6 @@ public class Trie
         {
             wordsFinderTraversal(node.below.get(aloc.get(i)), offset + 2);
         } 
-
   }
 
 
@@ -174,6 +170,5 @@ public class Trie
         prefixTree.wordsFinderTraversal(tn,0);
         prefixTree.displayFoundWords(); 
         }
-
     }
 }
