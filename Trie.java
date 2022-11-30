@@ -6,46 +6,45 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 
-public class Trie
-{
-    private Node root;
-    ArrayList<String> words; 
-    Node prefixRoot;
-    String curPrefix;
+public class Trie {
 
-    public Trie() 
-    {
-        root = new Node();
-        words  = new ArrayList<String>();
+    public Node root, start;
+    public String currentWord;
+    public ArrayList<String> words; 
+
+
+    public Trie() {
+
+      this.root = new Node();
+      this.words  = new ArrayList<String>();
+
     }
 
-    // Inserts a word into the trie.
-    public void insert(String word) 
-    {
-        HashMap<Character, Node> below = root.below;
-        Node crntabove;
-        crntabove = root;
-        //cur below above = root
+    public void insert(String word) {
+    
+        Node currentNode = root;
+        HashMap<Character, Node> children = root.children;
 
-        for(int i=0; i<word.length(); i++)
-        {
-            char c = word.charAt(i);
+        for(Character start : word.toCharArray()){
+          Node temp;
 
-            Node t;
-            if(below.containsKey(c)){ t = below.get(c);}
-            else
-            {
-            t = new Node(c);
-            t.above = crntabove;
-            below.put(c, t);
+          if(children.containsKey(start)){
+            temp = children.get(start);
+          } else {
+            temp = new Node(start);
+            temp.parent = currentNode;
+            children.put(start, temp);
+          }
+
+          children = temp.children;
+          currentNode = temp;
+
+          for(int i = 0; i < word.length(); i++) {
+            if (i == word.length() - 1) {
+              temp.isFullWord = true;
             }
+          }
 
-            below = t.below;
-            crntabove = t;
-
-            //set leaf node
-            if(i==word.length()-1)
-                t.bottom = true;    
         }
     }
 
@@ -60,21 +59,21 @@ public class Trie
 
     public Node searchNode(String str)
     {
-        Map<Character, Node> below = root.below; 
+        Map<Character, Node> children = root.children; 
         Node t = null;
         for(int i=0; i<str.length(); i++)
         {
             char c = str.charAt(i);
-            if(below.containsKey(c))
+            if(children.containsKey(c))
             {
-                t = below.get(c);
-                below = t.below;
+                t = children.get(c);
+                children = t.children;
             }
             else{return null;}
         }
 
-        prefixRoot = t;
-        curPrefix = str;
+        start = t;
+        currentWord = str;
         words.clear();
         return t;
     }
@@ -86,7 +85,7 @@ public class Trie
   {
         //  print(node, offset);
 
-        if(node.bottom==true)
+        if(node.isFullWord==true)
         {
           //println("leaf node found");
 
@@ -95,14 +94,14 @@ public class Trie
 
           Stack<String> hstack = new Stack<String>(); 
 
-          while(altair != prefixRoot)
+          while(altair != start)
           {
             //println(altair.c);
             hstack.push(Character.toString(altair.initialC) );
-            altair = altair.above;
+            altair = altair.parent;
           }
 
-          String wrd = curPrefix;
+          String wrd = currentWord;
 
           while(hstack.empty()==false)
           {
@@ -114,9 +113,9 @@ public class Trie
 
         }
 
-         Set<Character> kset = node.below.keySet();
-         //println(node.c); println(node.bottom);println(kset);
-         Iterator itr = kset.iterator();
+         Set<Character> kset = node.children.keySet();
+         //println(node.c); println(node.isFullWord);println(kset);
+         Iterator<Character> itr = kset.iterator();
          ArrayList<Character> aloc = new ArrayList<Character>();
 
         while(itr.hasNext())
@@ -126,11 +125,11 @@ public class Trie
             //println(ch);
         } 
 
-     // here you can play with the order of the below
+     // here you can play with the order of the children
 
         for( int i=0;i<aloc.size();i++)
         {
-            wordsFinderTraversal(node.below.get(aloc.get(i)), offset + 2);
+            wordsFinderTraversal(node.children.get(aloc.get(i)), offset + 2);
         } 
   }
 
@@ -149,7 +148,6 @@ public class Trie
         Trie prefixTree;
         prefixTree = new Trie();  
         Scanner scan = new Scanner(new File(args[0]));
-        Scanner scans = new Scanner(new File(args[1]));
         Scanner scanner = new Scanner(System.in);
 
         while(scan.hasNext()) {
@@ -163,5 +161,7 @@ public class Trie
         prefixTree.wordsFinderTraversal(tn,0);
         prefixTree.displayFoundWords(); 
         }
+
+        scanner.close();
     }
 }

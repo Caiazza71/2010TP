@@ -2,10 +2,10 @@ import java.util.HashMap;
 
 public class Node {
     
-    Node above;
-    HashMap<Character, Node> below = new HashMap<Character, Node>();
+    Node parent;
+    HashMap<Character, Node> children = new HashMap<Character, Node>();
     char initialC;
-    boolean bottom;
+    boolean isFullWord;
 
     public Node() {}
     
