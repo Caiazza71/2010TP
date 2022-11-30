@@ -149,51 +149,51 @@ public class Trie
          Iterator itr = kset.iterator();
          ArrayList<Character> aloc = new ArrayList<Character>();
 
-       while(itr.hasNext())
-       {
-        Character ch = (Character)itr.next();  
-        aloc.add(ch);
-        //println(ch);
-       } 
+        while(itr.hasNext())
+        {
+            Character ch = (Character)itr.next();  
+            aloc.add(ch);
+            //println(ch);
+        } 
 
      // here you can play with the order of the children
 
-       for( int i=0;i<aloc.size();i++)
-       {
-        wordsFinderTraversal(node.children.get(aloc.get(i)), offset + 2);
-       } 
+        for( int i=0;i<aloc.size();i++)
+        {
+            wordsFinderTraversal(node.children.get(aloc.get(i)), offset + 2);
+        } 
 
   }
 
 
-       void displayFoundWords()
-       {
-         System.out.println("_______________");
+    void displayFoundWords()
+    {
+        System.out.println("_______________");
         for(int i=0;i<words.size();i++)
         {
           System.out.println(words.get(i));
         } 
         System.out.println("________________");
 
-       }
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         Trie prefixTree;
         prefixTree = new Trie();  
         Scanner scan = new Scanner(new File(args[0]));
+        Scanner scanner = new Scanner(System.in);
 
         while(scan.hasNext()) {
             String word = scan.next();
             prefixTree.insert(word);
         }
-        
-        if( prefixTree.startsWith("Abe")==true)
-     {
-       TrieNode tn = prefixTree.searchNode("Abe");
-       prefixTree.wordsFinderTraversal(tn,0);
-       prefixTree.displayFoundWords(); 
+        String input = scanner.next();
 
-     }
+        if( prefixTree.startsWith(input)==true) {
+        TrieNode tn = prefixTree.searchNode(input);
+        prefixTree.wordsFinderTraversal(tn,0);
+        prefixTree.displayFoundWords(); 
+        }
 
     }
 }
