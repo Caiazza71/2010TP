@@ -19,9 +19,12 @@
  *  return to the dictionary if it gives nothing of importance
  * 
  */
+import java.util.*;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
-
-public class SmartWord
+public class SmartWord 
 {
     String[] guesses = new String[3];  // 3 guesses from SmartWord
 
@@ -32,18 +35,16 @@ public class SmartWord
     }
 
     // process old messages from oldMessageFile
-    public void processOldMessages(String oldMessageFile)
+    public void processOldMessages(String oldMessageFile) throws FileNotFoundException
     {
-        //This will be our LikelyHood.java file
-        
-        //Store in a tree??
-        //Make it super easy to go down the list of words
-        //              A
-        //      AA  AB  AC  AD  AE
-        //And so on! only create as far as we need to. 
-        //aka, there should always be a step at the bottom with no children,
-        //   but wont always need to be a full word
-        
+        Trie oldMess;
+        oldMess = new Trie();
+        Scanner scans = new Scanner(new File(oldMessageFile)); 
+
+        while(scans.hasNext()) {
+            String word = scans.next();
+            oldMess.insert(word);
+        }
     }
 
     // based on a letter typed in by the user, return 3 word guesses in an array
@@ -72,25 +73,8 @@ public class SmartWord
     // c.         false               correct word
     public void feedback(boolean isCorrectGuess, String correctWord)        
     {
-        for (int i = 0; i < guesses.length; i++) {
-            if (guesses[i].equals(correctWord)) {
-                isCorrectGuess = true;
-            }
-            else {
-                isCorrectGuess = false;
-            }
-        }
 
-        if (isCorrectGuess = false) {
-            // If (word is not complete)
-            correctWord = null;
-            // Then we run the program again with another character added to the word
 
-            // If the word is complete
-            // Then the program is over and that is the correctWord
-        }
-
-// heyyyyyyyyyyy
     }
 
 }
