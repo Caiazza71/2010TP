@@ -6,121 +6,99 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 
-public class Trie
-{
+public class Trie {
+    Node starter;
+    String current;
     private Node main;
-    ArrayList<String> words; 
-    Node prefixmain;
-    String curPrefix;
+    ArrayList<String> list; 
 
-    public Trie() 
-    {
+    public Trie() {
         main = new Node();
-        words  = new ArrayList<String>();
+        list  = new ArrayList<String>();
     }
 
     // Inserts a word into the trie.
-    public void insert(String word) 
-    {
+    public void insert(String input) {
+        Node parent;
         HashMap<Character, Node> below = main.below;
-        Node crntabove;
-        crntabove = main;
+        parent = main;
         //cur below above = main
 
-        for(int i=0; i<word.length(); i++)
-        {
-            char c = word.charAt(i);
-
-            Node t;
-            if(below.containsKey(c)){ t = below.get(c);}
-            else
-            {
-            t = new Node(c);
-            t.above = crntabove;
-            below.put(c, t);
+        for(int i=0; i < input.length(); i++) {
+            Node hello;
+            char letter = input.charAt(i);
+            if(below.containsKey(letter)){ 
+                hello = below.get(letter);
+            }
+            else{
+                hello = new Node(letter);
+                hello.above = parent;
+                below.put(letter, hello);
             }
 
-            below = t.below;
-            crntabove = t;
-
+            below = hello.below;
+            parent = hello;
             //set leaf node
-            if(i==word.length()-1)
-                t.bottom = true;    
+            if(i == input.length()-1)
+                hello.bottom = true;    
         }
     }
 
 
     // Returns if there is any word in the trie
     // that starts with the given prefix.
-    public boolean startsWith(String prefix) 
-    {
-        if(searchNode(prefix) == null) {return false;}
-        else{return true;}
+    public boolean begin(String letter) {
+        if (searchTrie(letter) != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
-    public Node searchNode(String str)
-    {
+    public Node searchTrie(String word) {
         Map<Character, Node> below = main.below; 
-        Node t = null;
-        for(int i=0; i<str.length(); i++)
-        {
-            char c = str.charAt(i);
-            if(below.containsKey(c))
+        Node hello = null;
+        for(int i=0; i < word.length(); i++) {
+            char letter = word.charAt(i);
+            if(below.containsKey(letter))
             {
-                t = below.get(c);
-                below = t.below;
+                hello = below.get(letter);
+                below = hello.below;
             }
-            else{return null;}
+            else {
+                return null;
+            }
         }
-
-        prefixmain = t;
-        curPrefix = str;
-        words.clear();
-        return t;
+        current = word;
+        starter = hello;
+        list.clear();
+        return hello;
     }
 
+  void find(Node hello, int num) {
+        if (hello.bottom == true) {
+            String s = current;
+            Stack<String> finder = new Stack<String>(); 
+            Node n;
+            n = hello;
 
-    ///////////////////////////
-
-  void wordsFinderTraversal(Node node, int offset) 
-  {
-        //  print(node, offset);
-
-        if(node.bottom==true)
-        {
-          //println("leaf node found");
-
-          Node altair;
-          altair = node;
-
-          Stack<String> hstack = new Stack<String>(); 
-
-          while(altair != prefixmain)
-          {
-            //println(altair.c);
-            hstack.push(Character.toString(altair.initialC) );
-            altair = altair.above;
-          }
-
-          String wrd = curPrefix;
-
-          while(hstack.empty()==false)
-          {
-            wrd = wrd + hstack.pop();
-          }
-
-          //println(wrd);
-          words.add(wrd);
-
+            while(n != starter) {
+                finder.push(Character.toString(n.initialC) );
+                n = n.above;
+            }
+            while(finder.empty()==false) {
+                s = s + finder.pop();
+            }
+            list.add(s);
         }
 
-         Set<Character> kset = node.below.keySet();
+         Set<Character> kset = hello.below.keySet();
          //println(node.c); println(node.bottom);println(kset);
          Iterator itr = kset.iterator();
          ArrayList<Character> aloc = new ArrayList<Character>();
 
-        while(itr.hasNext())
-        {
+        while(itr.hasNext()) {
             Character ch = (Character)itr.next();  
             aloc.add(ch);
             //println(ch);
@@ -128,18 +106,16 @@ public class Trie
 
      // here you can play with the order of the below
 
-        for( int i=0;i<aloc.size();i++)
-        {
-            wordsFinderTraversal(node.below.get(aloc.get(i)), offset + 2);
+        for( int i=0;i<aloc.size();i++) {
+            find(hello.below.get(aloc.get(i)), num + 2);
         } 
   }
 
-    void displayFoundWords()
-    {
+    void displayFoundWords() {
         System.out.println("_______________");
-        for(int i=0;i<words.size();i++)
+        for(int i=0;i<list.size();i++)
         {
-          System.out.println(words.get(i));
+          System.out.println(list.get(i));
         } 
         System.out.println("________________");
 
@@ -158,9 +134,9 @@ public class Trie
         }
         String input = scanner.next();
 
-        if( prefixTree.startsWith(input)==true) {
-            Node tn = prefixTree.searchNode(input);
-            prefixTree.wordsFinderTraversal(tn,0);
+        if( prefixTree.begin(input)==true) {
+            Node tn = prefixTree.searchTrie(input);
+            prefixTree.find(tn,0);
             prefixTree.displayFoundWords(); 
         }
     }
