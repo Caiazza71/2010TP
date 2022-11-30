@@ -26,13 +26,20 @@ import java.io.FileNotFoundException;
 
 public class SmartWord 
 {
+    
+    String currentWord = "";
+    int wordCnt = 0;
+    
+    Trie dictionary;
+    Trie oldMess;
+    
     String[] guesses = new String[3];  // 3 guesses from SmartWord
 
     // initialize SmartWord with a file of English words
     public SmartWord(String wordFile) throws FileNotFoundException
     {
         //This will be our DataIn.java class
-        Trie dictionary = new Trie();
+        dictionary = new Trie();
         Scanner in = new Scanner(new File(wordFile));
 
         while(in.hasNext()){
@@ -43,7 +50,6 @@ public class SmartWord
     // process old messages from oldMessageFile
     public void processOldMessages(String oldMessageFile) throws FileNotFoundException
     {
-        Trie oldMess;
         oldMess = new Trie();
         Scanner scans = new Scanner(new File(oldMessageFile)); 
 
@@ -59,7 +65,24 @@ public class SmartWord
     // wordPosition: position of the word in a message, starts from 0
     public String[] guess(char letter,  int letterPosition, int wordPosition)
     {
+        //If theres a new word it clears where it was
+        if(wordCnt == wordPosition){ // same word found
+            currentWord += letter;
+        }else{ // new word found
+            wordCnt++;
+            currentWord = letter + "";
+        }
         
+        if(oldMess.begin(currentWord)){ // if it finds the word in the older messages
+            Node phrase = oldMess.searchTrie(currentWord);
+            oldMess.find(phrase, 0);
+            
+            
+        }else{ // no words found in oldMessages, so it goes to dict
+        }
+        
+        oldMess.dictionary.clear();
+        dictionary.dictionary.clear();
         return guesses;
         
     }
