@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/////////
+
 public class Trie {
     public Node root, start;
     public String currentWord;
