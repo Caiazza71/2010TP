@@ -1,31 +1,11 @@
-/*
-Hash map
-Array of word objects
-Each object has key (obj.getKey), value (obj.getValue)
-Take in string value → convert to key
-Place new obj at key
 
-Or bypass all by making key index 
-
-*/
 // CHANGEEE STUFFFF
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-class TrieNode
-{
-    char c;
-    TrieNode parent;
-    HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
-    boolean isLeaf;
-
-    public TrieNode() {}
-    public TrieNode(char c){this.c = c;}
-    public static void main(String[] args) {
-    }
-}
 
 public class Trie
 {
