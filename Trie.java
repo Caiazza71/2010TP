@@ -1,5 +1,3 @@
-
-// CHANGEEE STUFFFF
 import java.util.*;
 import java.util.Scanner;
 import java.io.File;
@@ -48,13 +46,15 @@ public class Trie {
         }
     }
 
-
     // Returns if there is any word in the trie
     // that starts with the given prefix.
-    public boolean startsWith(String prefix) 
-    {
-        if(searchNode(prefix) == null) {return false;}
-        else{return true;}
+    public boolean begin(String letter) {
+        if (searchTrie(letter) != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public Node searchNode(String str)
@@ -69,7 +69,6 @@ public class Trie {
                 t = children.get(c);
                 children = t.children;
             }
-            else{return null;}
         }
 
         start = t;
@@ -78,6 +77,12 @@ public class Trie {
         return t;
     }
 
+  void find(Node hello, int num) {
+        if (hello.bottom == true) {
+            String s = current;
+            Stack<String> finder = new Stack<String>(); 
+            Node n;
+            n = hello;
 
     ///////////////////////////
 
@@ -125,43 +130,42 @@ public class Trie {
             //println(ch);
         } 
 
-     // here you can play with the order of the children
+     // here you can play with the order of the below
 
         for( int i=0;i<aloc.size();i++)
         {
-            wordsFinderTraversal(node.children.get(aloc.get(i)), offset + 2);
+            wordsFinderTraversal(node.below.get(aloc.get(i)), offset + 2);
         } 
-  }
+    }
 
-    void displayFoundWords()
-    {
+    void print() {
         System.out.println("_______________");
-        for(int i=0;i<words.size();i++)
-        {
-          System.out.println(words.get(i));
+        for(int i = 0;i < list.size(); i++) {
+          System.out.println(list.get(i));
         } 
         System.out.println("________________");
-
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        Trie prefixTree;
-        prefixTree = new Trie();  
+        Trie tree;
+        tree = new Trie();  
         Scanner scan = new Scanner(new File(args[0]));
+        Scanner scans = new Scanner(new File(args[1]));
         Scanner scanner = new Scanner(System.in);
-
+        
         while(scan.hasNext()) {
             String word = scan.next();
-            prefixTree.insert(word);
+            tree.insert(word);
         }
         String input = scanner.next();
 
-        if( prefixTree.startsWith(input)==true) {
-        Node tn = prefixTree.searchNode(input);
-        prefixTree.wordsFinderTraversal(tn,0);
-        prefixTree.displayFoundWords(); 
+        if( tree.begin(input)==true) {
+            Node tn = tree.searchTrie(input);
+            tree.find(tn,0);
+            tree.print(); 
         }
 
         scanner.close();
     }
 }
+ }
