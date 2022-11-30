@@ -41,17 +41,6 @@ public class Trie {
         }
     }
 
-    // Returns if there is any word in the trie
-    // that starts with the given prefix.
-    public boolean begin(String letter) {
-        if (searchTrie(letter) != null) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public Node searchTrie(String word) {
         Map<Character, Node> below = main.below; 
         Node hello = null;
@@ -101,13 +90,22 @@ public class Trie {
             find(hello.below.get(arr.get(i)), num + 2);
         } 
     }
+    
+    // Returns if there is any word in the trie
+    // that starts with the given prefix.
+    public boolean begin(String letter) {
+        if (searchTrie(letter) != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     void print() {
-        System.out.println("_______________");
         for(int i = 0;i < list.size(); i++) {
           System.out.println(list.get(i));
         } 
-        System.out.println("________________");
     }
 
     public static void main(String[] args) throws FileNotFoundException {
