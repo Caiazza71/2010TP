@@ -1,3 +1,5 @@
+
+// CHANGEEE STUFFFF
 import java.util.*;
 import java.util.Scanner;
 import java.io.File;
@@ -8,13 +10,13 @@ public class Trie {
 
     public Node root, start;
     public String currentWord;
-    public ArrayList<String> words; 
+    public ArrayList<String> dictionary; 
 
 
     public Trie() {
 
       this.root = new Node();
-      this.words  = new ArrayList<String>();
+      this.dictionary  = new ArrayList<String>();
 
     }
 
@@ -46,15 +48,13 @@ public class Trie {
         }
     }
 
+
     // Returns if there is any word in the trie
     // that starts with the given prefix.
-    public boolean begin(String letter) {
-        if (searchTrie(letter) != null) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    public boolean startsWith(String prefix) 
+    {
+        if(searchNode(prefix) == null) {return false;}
+        else{return true;}
     }
 
     public Node searchNode(String str)
@@ -69,20 +69,15 @@ public class Trie {
                 t = children.get(c);
                 children = t.children;
             }
+            else{return null;}
         }
 
         start = t;
         currentWord = str;
-        words.clear();
+        dictionary.clear();
         return t;
     }
 
-  void find(Node hello, int num) {
-        if (hello.bottom == true) {
-            String s = current;
-            Stack<String> finder = new Stack<String>(); 
-            Node n;
-            n = hello;
 
     ///////////////////////////
 
@@ -114,7 +109,7 @@ public class Trie {
           }
 
           //println(wrd);
-          words.add(wrd);
+          dictionary.add(wrd);
 
         }
 
@@ -130,42 +125,43 @@ public class Trie {
             //println(ch);
         } 
 
-     // here you can play with the order of the below
+     // here you can play with the order of the children
 
         for( int i=0;i<aloc.size();i++)
         {
-            wordsFinderTraversal(node.below.get(aloc.get(i)), offset + 2);
+            wordsFinderTraversal(node.children.get(aloc.get(i)), offset + 2);
         } 
-    }
+  }
 
-    void print() {
+    void displayFoundWords()
+    {
         System.out.println("_______________");
-        for(int i = 0;i < list.size(); i++) {
-          System.out.println(list.get(i));
+        for(int i=0;i<dictionary.size();i++)
+        {
+          System.out.println(dictionary.get(i));
         } 
         System.out.println("________________");
+
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        Trie tree;
-        tree = new Trie();  
+        Trie prefixTree;
+        prefixTree = new Trie();  
         Scanner scan = new Scanner(new File(args[0]));
-        Scanner scans = new Scanner(new File(args[1]));
         Scanner scanner = new Scanner(System.in);
 
         while(scan.hasNext()) {
             String word = scan.next();
-            tree.insert(word);
+            prefixTree.insert(word);
         }
         String input = scanner.next();
 
-        if( tree.begin(input)==true) {
-            Node tn = tree.searchTrie(input);
-            tree.find(tn,0);
-            tree.print(); 
+        if( prefixTree.startsWith(input)==true) {
+        Node tn = prefixTree.searchNode(input);
+        prefixTree.wordsFinderTraversal(tn,0);
+        prefixTree.displayFoundWords(); 
         }
 
         scanner.close();
     }
 }
- }
