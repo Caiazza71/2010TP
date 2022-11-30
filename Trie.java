@@ -112,7 +112,7 @@ public class Trie {
         Trie oldMess;
         oldMess = new Trie();
         Scanner scan = new Scanner(new File(args[0]));
-        Scanner scans = new Scanner(new File(args[1]));   //.useDelimiter("[ ,!?.-]+");
+        Scanner scans = new Scanner(new File(args[1])); //.useDelimiter("[ ,!?.-]+");
         Scanner scanner = new Scanner(System.in);
 
         while(scan.hasNext()) {
