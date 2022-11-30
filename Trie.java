@@ -1,5 +1,4 @@
 
-// CHANGEEE STUFFFF
 import java.util.*;
 import java.util.Scanner;
 import java.io.File;
@@ -7,12 +6,10 @@ import java.io.FileNotFoundException;
 
 
 public class Trie {
-
     public Node root, start;
     public String currentWord;
     public ArrayList<String> dictionary; 
-
-
+    
     public Trie() {
 
       this.root = new Node();
