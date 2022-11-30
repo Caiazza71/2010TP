@@ -128,6 +128,8 @@ public class Trie {
         tree.find(phrase, 0);
         tree.print(); 
         }
+
+        // Return list of words to tree to find the one with the greatest value
         scanner.close();
     }
 }
