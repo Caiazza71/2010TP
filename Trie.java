@@ -152,7 +152,7 @@ public class Trie {
         Scanner scan = new Scanner(new File(args[0]));
         Scanner scans = new Scanner(new File(args[1]));
         Scanner scanner = new Scanner(System.in);
-        
+
         while(scan.hasNext()) {
             String word = scan.next();
             tree.insert(word);
