@@ -19,16 +19,16 @@ public class Trie {
         Node currentNode = root;
         HashMap<Character, Node> children = root.children;
 
-        for (Character start : word.toCharArray()){
+        for (Character initial : word.toCharArray()){
             Node temp;
 
-            if(children.containsKey(start)){
-                temp = children.get(start);
+            if(children.containsKey(initial)){
+                temp = children.get(initial);
             } 
             else {
-                temp = new Node(start);
+                temp = new Node(initial);
                 temp.parent = currentNode;
-                children.put(start, temp);
+                children.put(initial, temp);
             }
 
             children = temp.children;
@@ -42,27 +42,25 @@ public class Trie {
     }
 
     public Node searchTrie(String word) {
-        Node hello = null;
+        Node temp = null;
         Map<Character, Node> below = root.children; 
 
-        for(int i = 0; i < word.length(); i++) {
-            char letter = word.charAt(i);
-            if(below.containsKey(letter)) {
-                hello = below.get(letter);
-                below = hello.children;
-            }
-            else{
-                return null;
-            }
+        for(Character initial : word.toCharArray()){
+          if(!below.containsKey(initial)){
+            return null;
+          } else {
+            temp = below.get(initial);
+            below = temp.children;
+          }
         }
 
         currentWord = word;
-        start = hello;
+        start = temp;
         dictionary.clear();
-        return hello;
+        return temp;
     }
 
-  void find(Node hello, int num) {
+  public void find(Node hello, int num) {
 
         if(hello.isFullWord == true) {
             Node n;
@@ -94,8 +92,6 @@ public class Trie {
         } 
     }
 
-    // Returns if there is any word in the trie
-    // that starts with the given prefix.
     public boolean begin (String letter) {
         if(searchTrie(letter) != null) {
             return true;
@@ -105,7 +101,7 @@ public class Trie {
         }
     }
 
-    void print() {
+    public void print() {
         for(int i = 0;i < dictionary.size(); i++) {
           System.out.println(dictionary.get(i));
         } 
