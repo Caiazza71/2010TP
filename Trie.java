@@ -8,24 +8,24 @@ import java.io.FileNotFoundException;
 
 public class Trie
 {
-    private Node root;
+    private Node main;
     ArrayList<String> words; 
-    Node prefixRoot;
+    Node prefixmain;
     String curPrefix;
 
     public Trie() 
     {
-        root = new Node();
+        main = new Node();
         words  = new ArrayList<String>();
     }
 
     // Inserts a word into the trie.
     public void insert(String word) 
     {
-        HashMap<Character, Node> below = root.below;
+        HashMap<Character, Node> below = main.below;
         Node crntabove;
-        crntabove = root;
-        //cur below above = root
+        crntabove = main;
+        //cur below above = main
 
         for(int i=0; i<word.length(); i++)
         {
@@ -60,7 +60,7 @@ public class Trie
 
     public Node searchNode(String str)
     {
-        Map<Character, Node> below = root.below; 
+        Map<Character, Node> below = main.below; 
         Node t = null;
         for(int i=0; i<str.length(); i++)
         {
@@ -73,7 +73,7 @@ public class Trie
             else{return null;}
         }
 
-        prefixRoot = t;
+        prefixmain = t;
         curPrefix = str;
         words.clear();
         return t;
@@ -95,7 +95,7 @@ public class Trie
 
           Stack<String> hstack = new Stack<String>(); 
 
-          while(altair != prefixRoot)
+          while(altair != prefixmain)
           {
             //println(altair.c);
             hstack.push(Character.toString(altair.initialC) );
@@ -149,7 +149,7 @@ public class Trie
         Trie prefixTree;
         prefixTree = new Trie();  
         Scanner scan = new Scanner(new File(args[0]));
-        Scanner scans = new Scanner(new File(args[1]));
+        //Scanner scans = new Scanner(new File(args[1]));
         Scanner scanner = new Scanner(System.in);
 
         while(scan.hasNext()) {
@@ -159,9 +159,9 @@ public class Trie
         String input = scanner.next();
 
         if( prefixTree.startsWith(input)==true) {
-        Node tn = prefixTree.searchNode(input);
-        prefixTree.wordsFinderTraversal(tn,0);
-        prefixTree.displayFoundWords(); 
+            Node tn = prefixTree.searchNode(input);
+            prefixTree.wordsFinderTraversal(tn,0);
+            prefixTree.displayFoundWords(); 
         }
     }
 }

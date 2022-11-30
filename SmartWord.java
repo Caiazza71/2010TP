@@ -2,7 +2,7 @@
 
   Authors (group members): Maxwell Caiazza, Taylor Carlson, Ava Crocker
   Email addresses of group members: mcaiazza2021@fit.edu, tcarlson2021@fit.edu, acrocker2021@fit.edu
-  Group name: Node Magicians
+  Group name: Node Wizards
 
   Course: Data Structures and Algorithms, CSE 2010
   Section: Section 3
@@ -50,8 +50,17 @@ public class SmartWord
     // letter: letter typed in by the user
     // letterPosition:  position of the letter in the word, starts from 0
     // wordPosition: position of the word in a message, starts from 0
-    public String[] guess(char letter,  int letterPosition, int wordPosition)
+    public String[] guess(char letter,  int letterPosition, int wordPosition, String[] likelyWords)
     {
+        int length = 0;
+        String[] guesses = new String[3];
+        // If the string array likelywords are given in greatest to lowest
+        while (length < 3) {
+            for (int i = 0; i < guesses.length; i++) {
+                guesses[i] = likelyWords[i];
+                length++;
+            }
+        }
 	
         return guesses;
     }
@@ -69,9 +78,27 @@ public class SmartWord
     // a.         true                correct word
     // b.         false               null
     // c.         false               correct word
-    public void feedback(boolean isCorrectGuess, String correctWord)        
+    public void feedback(boolean isCorrectGuess, String correctWord, String[] guesses)        
     {
+        for (int i = 0; i < guesses.length; i++) {
+            if (guesses[i].equals(correctWord)) {
+                isCorrectGuess = true;
+            }
+            else {
+                isCorrectGuess = false;
+            }
+        }
 
+        if (isCorrectGuess = false) {
+            // If (word is not complete)
+            correctWord = null;
+            // Then we run the program again with another character added to the word
+
+            // If the word is complete
+            // Then the program is over and that is the correctWord
+        }
+
+// heyyyyyyyyyyy
     }
 
 }
