@@ -9,156 +9,125 @@ public class Trie {
     public Node root, start;
     public String currentWord;
     public ArrayList<String> dictionary; 
-    
+
     public Trie() {
-
-      this.root = new Node();
-      this.dictionary  = new ArrayList<String>();
-
+        this.root = new Node();
+        this.dictionary  = new ArrayList<String>();
     }
 
     public void insert(String word) {
-    
         Node currentNode = root;
         HashMap<Character, Node> children = root.children;
 
-        for(Character start : word.toCharArray()){
-          Node temp;
+        for (Character start : word.toCharArray()){
+            Node temp;
 
-          if(children.containsKey(start)){
-            temp = children.get(start);
-          } else {
-            temp = new Node(start);
-            temp.parent = currentNode;
-            children.put(start, temp);
-          }
-
-          children = temp.children;
-          currentNode = temp;
-
-          for(int i = 0; i < word.length(); i++) {
-            if (i == word.length() - 1) {
-              temp.isFullWord = true;
+            if(children.containsKey(start)){
+                temp = children.get(start);
+            } 
+            else {
+                temp = new Node(start);
+                temp.parent = currentNode;
+                children.put(start, temp);
             }
-          }
 
+            children = temp.children;
+            currentNode = temp;
+            for (int i = 0; i < word.length(); i++) {
+                if (i == word.length() - 1) {
+                    temp.isFullWord = true;
+                }
+            }
         }
     }
 
+    public Node searchTrie(String word) {
+        Node hello = null;
+        Map<Character, Node> below = root.children; 
+
+        for(int i = 0; i < word.length(); i++) {
+            char letter = word.charAt(i);
+            if(below.containsKey(letter)) {
+                hello = below.get(letter);
+                below = hello.children;
+            }
+            else{
+                return null;
+            }
+        }
+
+        currentWord = word;
+        start = hello;
+        dictionary.clear();
+        return hello;
+    }
+
+  void find(Node hello, int num) {
+
+        if(hello.isFullWord == true) {
+            Node n;
+            n = hello;
+            String s = currentWord;
+            Stack<String> finder = new Stack<String>(); 
+
+            while(n != start) {
+                finder.push(Character.toString(n.initialC) );
+                n = n.parent;
+            }
+
+            while(finder.empty() != true) {
+                s = s + finder.pop();
+            }
+            dictionary.add(s);
+        }
+        ArrayList<Character> arr = new ArrayList<Character>();
+        Set<Character> list = hello.children.keySet();
+        Iterator<Character> runner = list.iterator();
+
+        while(runner.hasNext()) {
+            Character letter = (Character)runner.next();  
+            arr.add(letter);
+        } 
+
+        for( int i = 0;i < arr.size(); i++) {
+            find(hello.children.get(arr.get(i)), num + 2);
+        } 
+    }
 
     // Returns if there is any word in the trie
     // that starts with the given prefix.
-    public boolean startsWith(String prefix) 
-    {
-        if(searchNode(prefix) == null) {return false;}
-        else{return true;}
+    public boolean begin (String letter) {
+        if(searchTrie(letter) != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
-    public Node searchNode(String str)
-    {
-        Map<Character, Node> children = root.children; 
-        Node t = null;
-        for(int i=0; i<str.length(); i++)
-        {
-            char c = str.charAt(i);
-            if(children.containsKey(c))
-            {
-                t = children.get(c);
-                children = t.children;
-            }
-            else{return null;}
-        }
-
-        start = t;
-        currentWord = str;
-        dictionary.clear();
-        return t;
-    }
-
-
-    ///////////////////////////
-
-  void wordsFinderTraversal(Node node, int offset) 
-  {
-        //  print(node, offset);
-
-        if(node.isFullWord==true)
-        {
-          //println("leaf node found");
-
-          Node altair;
-          altair = node;
-
-          Stack<String> hstack = new Stack<String>(); 
-
-          while(altair != start)
-          {
-            //println(altair.c);
-            hstack.push(Character.toString(altair.initialC) );
-            altair = altair.parent;
-          }
-
-          String wrd = currentWord;
-
-          while(hstack.empty()==false)
-          {
-            wrd = wrd + hstack.pop();
-          }
-
-          //println(wrd);
-          dictionary.add(wrd);
-
-        }
-
-         Set<Character> kset = node.children.keySet();
-         //println(node.c); println(node.isFullWord);println(kset);
-         Iterator<Character> itr = kset.iterator();
-         ArrayList<Character> aloc = new ArrayList<Character>();
-
-        while(itr.hasNext())
-        {
-            Character ch = (Character)itr.next();  
-            aloc.add(ch);
-            //println(ch);
-        } 
-
-     // here you can play with the order of the children
-
-        for( int i=0;i<aloc.size();i++)
-        {
-            wordsFinderTraversal(node.children.get(aloc.get(i)), offset + 2);
-        } 
-  }
-
-    void displayFoundWords()
-    {
-        System.out.println("_______________");
-        for(int i=0;i<dictionary.size();i++)
-        {
+    void print() {
+        for(int i = 0;i < dictionary.size(); i++) {
           System.out.println(dictionary.get(i));
         } 
-        System.out.println("________________");
-
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        Trie prefixTree;
-        prefixTree = new Trie();  
+        Trie tree;
+        tree = new Trie();  
         Scanner scan = new Scanner(new File(args[0]));
         Scanner scanner = new Scanner(System.in);
 
         while(scan.hasNext()) {
             String word = scan.next();
-            prefixTree.insert(word);
+            tree.insert(word);
         }
         String input = scanner.next();
 
-        if( prefixTree.startsWith(input)==true) {
-        Node tn = prefixTree.searchNode(input);
-        prefixTree.wordsFinderTraversal(tn,0);
-        prefixTree.displayFoundWords(); 
+        if( tree.begin(input)==true) {
+        Node phrase = tree.searchTrie(input);
+        tree.find(phrase, 0);
+        tree.print(); 
         }
-
         scanner.close();
     }
 }
