@@ -29,9 +29,15 @@ public class SmartWord
     String[] guesses = new String[3];  // 3 guesses from SmartWord
 
     // initialize SmartWord with a file of English words
-    public SmartWord(String wordFile)
+    public SmartWord(String wordFile) throws FileNotFoundException
     {
         //This will be our DataIn.java class
+        Trie dictionary = new Trie();
+        Scanner in = new Scanner(new File(wordFile));
+
+        while(in.hasNext()){
+            dictionary.insert(in.next());
+        }
     }
 
     // process old messages from oldMessageFile
