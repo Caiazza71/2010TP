@@ -52,6 +52,7 @@ public class SmartWord
     // wordPosition: position of the word in a message, starts from 0
     public String[] guess(char letter,  int letterPosition, int wordPosition)
     {
+        // Letter position is the length of the word
         /*int length = 0;
         String[] guesses = new String[3];
         // If the string array likelywords are given in greatest to lowest

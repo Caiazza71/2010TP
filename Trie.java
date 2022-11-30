@@ -110,7 +110,10 @@ public class Trie {
     public static void main(String[] args) throws FileNotFoundException {
         Trie tree;
         tree = new Trie();  
+        Trie oldMess;
+        oldMess = new Trie();
         Scanner scan = new Scanner(new File(args[0]));
+        //Scanner scans = new Scanner(new File(args[1]));   //.useDelimiter("[ ,!?.-]+");
         Scanner scanner = new Scanner(System.in);
 
         while(scan.hasNext()) {
@@ -119,7 +122,7 @@ public class Trie {
         }
         String input = scanner.next();
 
-        if( tree.begin(input)==true) {
+        if(tree.begin(input)==true) {
         Node phrase = tree.searchTrie(input);
         tree.find(phrase, 0);
         tree.print(); 
@@ -129,3 +132,4 @@ public class Trie {
         scanner.close();
     }
 }
+

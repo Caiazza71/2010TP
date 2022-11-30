@@ -6,6 +6,7 @@ public class Node {
     HashMap<Character, Node> children = new HashMap<Character, Node>();
     char initialC;
     boolean isFullWord;
+    int freq;
 
     public Node() {}
     
