@@ -60,11 +60,11 @@ public class Trie {
         return temp;
     }
 
-  public void find(Node hello, int num) {
+  public void find(Node temp, int num) {
 
-        if(hello.isFullWord == true) {
+        if(temp.isFullWord == true) {
             Node n;
-            n = hello;
+            n = temp;
             String s = currentWord;
             Stack<String> finder = new Stack<String>(); 
 
@@ -79,7 +79,7 @@ public class Trie {
             dictionary.add(s);
         }
         ArrayList<Character> arr = new ArrayList<Character>();
-        Set<Character> list = hello.children.keySet();
+        Set<Character> list = temp.children.keySet();
         Iterator<Character> runner = list.iterator();
 
         while(runner.hasNext()) {
@@ -88,7 +88,7 @@ public class Trie {
         } 
 
         for( int i = 0;i < arr.size(); i++) {
-            find(hello.children.get(arr.get(i)), num + 2);
+            find(temp.children.get(arr.get(i)), num + 2);
         } 
     }
 
