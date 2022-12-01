@@ -1,5 +1,9 @@
 
 import java.util.*;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.File;
+
 
 public class Trie {
     public Node root, start;
@@ -64,12 +68,12 @@ public class Trie {
             LinkedList<String> finder = new LinkedList<String>(); 
 
             while(n != start) {
-                finder.addFirst(Character.toString(n.initialC) );
+                finder.push(Character.toString(n.initialC) );
                 n = n.parent;
             }
 
             while(finder.size() != 0) {
-                s = s + finder.removeLast();
+                s = s + finder.pop();
             }
             dictionary.add(s);
         }
@@ -92,4 +96,36 @@ public class Trie {
           System.out.println(dictionary.get(i).replaceAll("[^a-zA-Z]",  " ").split(" ")[0]);
         } 
     }
+
+    /* 
+    public static void main(String[] args) throws FileNotFoundException {
+        Trie tree;
+        tree = new Trie();  
+        Trie oldMess;
+        oldMess = new Trie();
+        Scanner scan = new Scanner(new File(args[0]));
+        Scanner scans = new Scanner(new File(args[1])); 
+        Scanner scanner = new Scanner(System.in);
+
+        while(scan.hasNext()) {
+            String word = scan.next();
+            tree.insert(word);
+        }
+
+        while(scans.hasNext()) {
+            String word = scans.next();
+            oldMess.insert(word);
+        }
+        String input = scanner.next();
+
+        if(oldMess.searchTrie(input) != null) {
+        Node phrase = oldMess.searchTrie(input);
+        oldMess.find(phrase, 0);
+        oldMess.print(); 
+        }
+
+        // Return list of words to tree to find the one with the greatest value
+        scanner.close();
+    }
+    */
 }
