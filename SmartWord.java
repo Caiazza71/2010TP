@@ -124,15 +124,16 @@ public class SmartWord {
             }
 
         }else{ // no words found in oldMessages, so it goes to dict
-            Node phrase = dictionary.searchTrie(currentWord);
-
-            dictionary.find(phrase, 0);   
-            Random rand = new Random();
-            int index;
-            // Finds 3 words fomr dict to use
-            for(int i = 0; i < 3 ; i++ ){
-                index = rand.nextInt(dictionary.dictionary.size());
-                guesses[i] = dictionary.dictionary.get(index);
+            if(dictionary.searchTrie(currentWord) != null){
+                Node phrase = dictionary.searchTrie(currentWord);
+                dictionary.find(phrase, 0);   
+                Random rand = new Random();
+                int index;
+                // Finds 3 words fomr dict to use
+                for(int i = 0; i < 3 ; i++ ){
+                    index = rand.nextInt(dictionary.dictionary.size());
+                    guesses[i] = dictionary.dictionary.get(index);
+                }
             }
         }
         
