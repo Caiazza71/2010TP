@@ -6,10 +6,6 @@
 * Maxwell Caiazza, Ava Crocker, Taylor Carlson
 */
 
-
-
-
-
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,10 +29,10 @@ public class Trie {
     public void insert(String wordIn) {
         Node currentNode = root;
         HashMap<Character, Node> children = root.children;
-
-        for (int i = 0; i < wordIn.length(); i++){
+        String word = wordIn.replaceAll("[^a-zA-Z]",  "");
+        for (int i = 0; i < word.length(); i++){
             Node temp;
-            char initial = wordIn.charAt(i);
+            char initial = word.charAt(i);
 
             if(!children.containsKey(initial)){
                 temp = new Node(initial);
@@ -49,7 +45,7 @@ public class Trie {
 
             children = temp.children;
             currentNode = temp;
-            if (i == wordIn.length() - 1) {
+            if (i == word.length() - 1) {
                 temp.isFullWord = true;
             }
         }
@@ -109,5 +105,3 @@ public class Trie {
         } 
     }
 }
-
-//System.out.println(dictionary.get(i).replaceAll("[^a-zA-Z]",  " ").split(" ")[0]);
