@@ -7,7 +7,7 @@
   Course: Data Structures and Algorithms, CSE 2010
   Section: Section 3
 
-  Description of the overall algorithm:
+  Description of the overall algorithm: Recommends 3 words in a message based on past messages and a dictionary
 */
 
 /*
@@ -17,41 +17,43 @@
  *  return to the dictionary if it gives nothing of importance
  * 
  */
+
+ // Needed imports
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SmartWord 
-{
+public class SmartWord {
     
+    // Creates variables later needed in the class
     String currentWord = "";
     int wordCnt = 0;
-    
     Trie dictionary;
     Trie oldMess;
     
     String[] guesses = new String[3];  // 3 guesses from SmartWord
 
-    // initialize SmartWord with a file of English words
-    public SmartWord(String wordFile) throws FileNotFoundException
-    {
-        //This will be our DataIn.java class
+    // Initialize SmartWord with a file of English words
+    public SmartWord(String wordFile) throws FileNotFoundException {
+        // Creates a trie to store words
         dictionary = new Trie();
         Scanner in = new Scanner(new File(wordFile));
 
+        // Inserts the words into the trie and sorts them
         while(in.hasNext()){
             dictionary.insert(in.next());
         }
     }
 
     // process old messages from oldMessageFile
-    public void processOldMessages(String oldMessageFile) throws FileNotFoundException
-    {
+    public void processOldMessages(String oldMessageFile) throws FileNotFoundException {
+        // Creates a trie to store old messages
         oldMess = new Trie();
         Scanner scans = new Scanner(new File(oldMessageFile)); 
 
+        // Inserts the words into the trie and sorts them
         while(scans.hasNext()) {
             String word = scans.next();
             oldMess.insert(word);
@@ -82,7 +84,7 @@ public class SmartWord
                 ArrayList<Integer> occurances = new ArrayList<Integer>();
 
                 int location;
-
+                // Checks to see what words come from old messages
                 for(String word : oldMess.dictionary){
                     if(words.contains(word)){
                         location = words.indexOf(word);
@@ -104,6 +106,7 @@ public class SmartWord
                 }
             }else{ // 1 or two guesses coming from old messages
                 int i = 0;
+                // Checks to see if there is word from old messages
                 for(String word : oldMess.dictionary){
                     guesses[i] = word;
                     i++;
@@ -112,6 +115,7 @@ public class SmartWord
                 dictionary.find(phrase, 0);   
                 Random rand = new Random();
                 int index;
+                // Gets the remaining words from dict
                 for(; i < 3 ; i++ ){
                     index = rand.nextInt(dictionary.dictionary.size());
                     guesses[i] = dictionary.dictionary.get(index);
@@ -123,6 +127,7 @@ public class SmartWord
                 dictionary.find(phrase, 0);   
                 Random rand = new Random();
                 int index;
+                // Finds 3 words fomr dict to use
                 for(int i = 0; i < 3 ; i++ ){
                     index = rand.nextInt(dictionary.dictionary.size());
                     guesses[i] = dictionary.dictionary.get(index);
@@ -150,6 +155,7 @@ public class SmartWord
     // c.         false               correct word
     public void feedback(boolean isCorrectGuess, String correctWord)        
     {
+        // Changes the feedback to true if the full word is present
         if (isCorrectGuess == false) {
             if (correctWord != null) {
                 isCorrectGuess = true;
