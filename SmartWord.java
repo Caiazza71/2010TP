@@ -21,6 +21,8 @@ import java.util.*;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class SmartWord 
 {
@@ -76,7 +78,56 @@ public class SmartWord
             Node phrase = oldMess.searchTrie(currentWord);
             oldMess.find(phrase, 0);          
             
+            if(oldMess.dictionary.size() > 3){ // All guesses coming from old Messages
+                ArrayList<String> words = new ArrayList<String>();
+                ArrayList<Integer> occurances = new ArrayList<Integer>();
+
+                int location;
+
+                for(String word : oldMess.dictionary){
+                    if(words.contains(word)){
+                        location = words.indexOf(word);
+                        occurances.add(location, occurances.get(location) + 1);
+                    }else{
+                        words.add(word);
+                        occurances.add(1);
+                    }
+                }
+
+                for(int k = 0; k < 3; k ++){
+                    int largest = 0;
+                    for(int i = 0; i < occurances.size(); i++){
+                        if(occurances.get(i) >= largest){
+                            largest = i;
+                        }
+                    }
+                    guesses[k] = words.get(largest);
+                }
+            }else{ // 1 or two guesses coming from old messages
+                int i = 0;
+                for(String word : oldMess.dictionary){
+                    guesses[i] = word;
+                    i++;
+                }
+                phrase = dictionary.searchTrie(currentWord);
+                dictionary.find(phrase, 0);   
+                Random rand = new Random();
+                int index;
+                for(; i < 3 ; i++ ){
+                    index = rand.nextInt(dictionary.dictionary.size());
+                    guesses[i] = dictionary.dictionary.get(index);
+                }
+            }
+
         }else{ // no words found in oldMessages, so it goes to dict
+            Node phrase = dictionary.searchTrie(currentWord);
+                dictionary.find(phrase, 0);   
+                Random rand = new Random();
+                int index;
+                for(int i = 0; i < 3 ; i++ ){
+                    index = rand.nextInt(dictionary.dictionary.size());
+                    guesses[i] = dictionary.dictionary.get(index);
+                }
         }
         
         oldMess.dictionary.clear();
