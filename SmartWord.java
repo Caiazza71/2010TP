@@ -136,6 +136,11 @@ public class SmartWord {
         
         oldMess.dictionary.clear();
         dictionary.dictionary.clear();
+        /*for(String word : guesses){
+            System.out.print(word);
+        }
+        System.out.println();
+        */
         return guesses;
         
     }

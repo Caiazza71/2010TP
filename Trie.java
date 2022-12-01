@@ -109,3 +109,5 @@ public class Trie {
         } 
     }
 }
+
+//System.out.println(dictionary.get(i).replaceAll("[^a-zA-Z]",  " ").split(" ")[0]);

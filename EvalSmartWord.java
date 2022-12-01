@@ -111,6 +111,7 @@ public class EvalSmartWord
                 int indexLetter = 0;
                 boolean isCorrectGuess = false;
 
+                
                 //Go through every letter in the word, and stop is a correct guess was made.
                 while(indexLetter < noOfLettersInWord && !isCorrectGuess){
                     totalGuessess++;
