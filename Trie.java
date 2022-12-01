@@ -55,40 +55,6 @@ public class Trie {
         }
     }
 
-    //Find takes ina valid node and then spits out all the children with similar prefixes
-    public void find(Node temp, int num) {
-
-        if(temp.isFullWord == true) {
-            Node n;
-            n = temp;
-            String s = currentWord;
-            LinkedList<String> finder = new LinkedList<String>(); 
-
-            while(n != start) {
-                finder.addFirst(Character.toString(n.initialC) );
-                n = n.parent;
-            }
-
-            while(finder.size() != 0) {
-                s = s + finder.removeFirst();
-            }
-            dictionary.add(s);
-        }
-
-        ArrayList<Character> arr = new ArrayList<Character>();
-        Set<Character> list = temp.children.keySet();
-        Iterator<Character> runner = list.iterator();
-
-        while(runner.hasNext()) {
-            Character letter = (Character)runner.next();  
-            arr.add(letter);
-        } 
-
-        for( int i = 0;i < arr.size(); i++) {
-            find(temp.children.get(arr.get(i)), num + 2);
-        } 
-    }
-
     //Searching the tree when given a word to find where the children are
     public Node searchTrie(String word) {
         Node temp = null;
@@ -107,5 +73,39 @@ public class Trie {
         start = temp;
         dictionary.clear();
         return temp;
+    }
+
+    //Find takes ina valid node and then spits out all the children with similar prefixes
+    public void find(Node temp, int num) {
+
+        if(temp.isFullWord == true) {
+            Node n;
+            n = temp;
+            String s = currentWord;
+            LinkedList<String> finder = new LinkedList<String>(); 
+
+            while(n != start) {
+                finder.push(Character.toString(n.initialC) );
+                n = n.parent;
+            }
+
+            while(finder.size() != 0) {
+                s = s + finder.pop();
+            }
+            dictionary.add(s);
+        }
+
+        ArrayList<Character> arr = new ArrayList<Character>();
+        Set<Character> list = temp.children.keySet();
+        Iterator<Character> runner = list.iterator();
+
+        while(runner.hasNext()) {
+            Character letter = (Character)runner.next();  
+            arr.add(letter);
+        } 
+
+        for( int i = 0;i < arr.size(); i++) {
+            find(temp.children.get(arr.get(i)), num + 2);
+        } 
     }
 }
