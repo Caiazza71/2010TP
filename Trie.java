@@ -87,15 +87,6 @@ public class Trie {
         } 
     }
 
-    public boolean begin (String letter) {
-        if(searchTrie(letter) != null) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public void print() {
         for(int i = 0;i < dictionary.size(); i++) {
           System.out.println(dictionary.get(i).replaceAll("[^a-zA-Z]",  " ").split(" ")[0]);
