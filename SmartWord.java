@@ -71,10 +71,10 @@ public class SmartWord
             currentWord = letter + "";
         }
         
-        if(oldMess.begin(currentWord)){ // if it finds the word in the older messages
+        if(oldMess.searchTrie(currentWord) != null) {
+        // if it finds the word in the older messages
             Node phrase = oldMess.searchTrie(currentWord);
-            oldMess.find(phrase, 0);
-            
+            oldMess.find(phrase, 0);          
             
         }else{ // no words found in oldMessages, so it goes to dict
         }
