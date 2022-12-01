@@ -29,10 +29,10 @@ public class Trie {
     public void insert(String wordIn) {
         Node currentNode = root;
         HashMap<Character, Node> children = root.children;
-        String word = wordIn.replaceAll("[^a-zA-Z]",  "");
-        for (int i = 0; i < word.length(); i++){
+        //String word = wordIn.replaceAll("[^a-zA-Z]",  "");
+        for (int i = 0; i < wordIn.length(); i++){
             Node temp;
-            char initial = word.charAt(i);
+            char initial = wordIn.charAt(i);
 
             if(!children.containsKey(initial)){
                 temp = new Node(initial);
@@ -45,7 +45,7 @@ public class Trie {
 
             children = temp.children;
             currentNode = temp;
-            if (i == word.length() - 1) {
+            if (i == wordIn.length() - 1) {
                 temp.isFullWord = true;
             }
         }
