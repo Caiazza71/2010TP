@@ -61,15 +61,15 @@ public class Trie {
             Node n;
             n = temp;
             String s = currentWord;
-            Stack<String> finder = new Stack<String>(); 
+            LinkedList<String> finder = new LinkedList<String>(); 
 
             while(n != start) {
-                finder.push(Character.toString(n.initialC) );
+                finder.addFirst(Character.toString(n.initialC) );
                 n = n.parent;
             }
 
-            while(finder.empty() != true) {
-                s = s + finder.pop();
+            while(finder.size() != 0) {
+                s = s + finder.removeLast();
             }
             dictionary.add(s);
         }
