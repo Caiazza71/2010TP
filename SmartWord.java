@@ -100,8 +100,12 @@ public class SmartWord
     // c.         false               correct word
     public void feedback(boolean isCorrectGuess, String correctWord)        
     {
-
-
+        if (isCorrectGuess == false) {
+            if (correctWord != null) {
+                isCorrectGuess = true;
+            }
+        }
+        return;
     }
 
 }
