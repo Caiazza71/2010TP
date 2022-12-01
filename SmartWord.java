@@ -17,7 +17,6 @@
  *  return to the dictionary if it gives nothing of importance
  * 
  */
-import java.util.*;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
