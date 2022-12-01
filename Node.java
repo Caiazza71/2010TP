@@ -1,3 +1,8 @@
+//Trie Node class
+//Authors:
+//Maxwell Caiazza, Ava Crocker, Taylor Carlson
+
+
 import java.util.HashMap;
 
 public class Node {
