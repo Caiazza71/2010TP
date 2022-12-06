@@ -10,7 +10,7 @@ public class Node implements Comparable<Node>{
     HashMap<Character, Node> children = new HashMap<Character, Node>();
     char initialC;
     boolean isFullWord;
-    int freq;
+    int freq = 1;
 
     // Node Constructor
     public Node() {}

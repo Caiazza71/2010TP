@@ -6,8 +6,11 @@
 * Maxwell Caiazza, Ava Crocker, Taylor Carlson
 */
 
-import java.util.LinkedList;
-import java.util.ArrayList;
+
+import java.util.ArrayList; // for arrays
+import java.util.Collections; // for sorting arrays
+
+//Imports to get rid of \/\/\/\/\/\/
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -76,20 +79,8 @@ public class Trie {
     public void find(Node temp, int num) {
 
         if(temp.isFullWord == true) {
-            Node n;
-            n = temp;
-            String s = currentWord;
-            LinkedList<String> finder = new LinkedList<String>(); 
-
-            while(n != start) {
-                finder.push(Character.toString(n.initialC) );
-                n = n.parent;
-            }
-
-            while(finder.size() != 0) {
-                s = s + finder.pop();
-            }
-            dictionary.add(s);
+            dictionary.add(temp);
+            return;
         }
 
         ArrayList<Character> arr = new ArrayList<Character>();
@@ -106,9 +97,28 @@ public class Trie {
         } 
     }
     
-    public ArrayList<String> getPossibleGuesses(){
+    public ArrayList<String> getPossibleGuesses(String currentWord, int location){
         
+        //Filling the dictionary of the trie with the 
+        Node newNode = this.searchTrie(currentWord);
+        //System.out.println(newNode.initialC);
+        this.find(newNode, location);
         
+        possibleGuesses = new ArrayList<String>();
+        
+        //Sorting the dictionary based on frequency
+        Collections.sort(dictionary);
+        Node temp;
+        String word = "";
+        for(Node node : dictionary){
+            temp = node;
+            while(temp != root){
+                word = Character.toString(temp.initialC) + word;
+                temp = temp.parent;
+            }
+            possibleGuesses.add(word);
+            word = ""; // resetting the word to nothing
+        }
         return possibleGuesses;
     }
 }

@@ -53,7 +53,7 @@ public class SmartWord {
 
         // Inserts the words into the trie and sorts them
         while(scan.hasNext()) { 
-            //automatically removes all extra bits from
+            //automatically removes all extra bits from the string
             trie.insert(scan.next().replaceAll("[^a-zA-Z]",  ""));
         }
     }
@@ -70,23 +70,30 @@ public class SmartWord {
             wordCnt++;
             currentWord = letter + "";
         }
+        
         guesses = new String[3];
         
-        //Filling the dictionary of the trie with the 
-        Node newNode = trie.searchTrie(currentWord);
-        trie.find(newNode, 0);
-        ArrayList<String> possibleGuesses = trie.getPossibleGuesses();
+        ArrayList<String> possibleGuesses = trie.getPossibleGuesses(currentWord,letterPosition);
         
-        while(guesses.length < 3){
+        
+        int spot = 0;
+        while(guesses[2] == null){
+            if(possibleGuesses.isEmpty()){
+                return guesses;
+            }
             if(!prevGuesses.contains(possibleGuesses.get(0))){ // if its not in prev guesses
-                guesses[guesses.length] = possibleGuesses.get(0);
-                possibleGuesses.remove(0);
+                //System.out.println(possibleGuesses.get(0)); // debug
+                guesses[spot] = possibleGuesses.get(0); // adding the guess to guesses 
+                spot++; // moving the index in guesses
+                possibleGuesses.remove(0); // removes the one we just guessed
             }else{ // If it finds the guess already in prevguesses
+                //System.out.println(possibleGuesses.get(0)); // debug
                 possibleGuesses.remove(0);
             }
         }
         
         //Debugging Printing That helps track what we are guessing
+        System.out.println(currentWord);
         for(String word : guesses){
             System.out.print(word +" ");
         }
@@ -113,15 +120,17 @@ public class SmartWord {
     {
         
         //Debugging prints
+        /*
         System.out.println("--------");
         System.out.println(isCorrectGuess);
         System.out.println(correctWord);
         System.out.println("--------");
-        
+        */
         
         
         if (isCorrectGuess && correctWord != null) { // Case A
             prevGuesses.clear();
+            System.out.println("CORRECT GUESS LFG");
             return;
         }else if(!isCorrectGuess && correctWord == null){ // Case B
             for(String word : guesses){
