@@ -52,6 +52,13 @@ public class Trie {
             if (i == wordIn.length() - 1) {
                 temp.isFullWord = true;
             }
+
+            if (temp.isFullWord && temp.initialC == wordIn.charAt(wordIn.length() - 1)){
+                System.out.println(wordIn + " " + temp.initialC + " " + wordIn.charAt(wordIn.length() - 1));
+                
+                temp.freq++;
+                System.out.println(temp.freq);
+            }
         }
     }
 
