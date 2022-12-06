@@ -30,13 +30,7 @@ public class SmartWord {
     ArrayList<String> prevGuesses = new ArrayList<String>();
     String currentWord = "";
     int wordCnt = 0;
-<<<<<<< Updated upstream
     Trie trie;
-=======
-    Trie dictionary;
-    Trie oldMess;
-    
->>>>>>> Stashed changes
     
     String[] guesses = new String[3];  // 3 guesses from SmartWord
 
