@@ -28,6 +28,7 @@ import java.util.Random;
 public class SmartWord {
     
     // Creates variables later needed in the class
+    ArrayList<String> prevGuesses = new ArrayList<String>();
     String currentWord = "";
     int wordCnt = 0;
     Trie dictionary;
@@ -164,10 +165,18 @@ public class SmartWord {
     // c.         false               correct word
     public void feedback(boolean isCorrectGuess, String correctWord)        
     {
-        if (correctWord == null) {
+        if (isCorrectGuess && correctWord != null) { // Case A
+            prevGuesses.clear();
+            return;
+        }else if(!isCorrectGuess && correctWord == null){ // Case B
+            for(String word : guesses){
+                prevGuesses.add(word);
+            }
+            return;
+        }else{// Case C
+            prevGuesses.clear();
             return;
         }
-        oldMess.insert(correctWord);
     
     }
 
