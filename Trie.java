@@ -106,5 +106,9 @@ public class Trie {
         } 
     }
     
-    
+    public ArrayList<String> getPossibleGuesses(){
+        
+        
+        return possibleGuesses;
+    }
 }
