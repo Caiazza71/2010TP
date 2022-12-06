@@ -16,12 +16,13 @@ import java.util.Iterator;
 public class Trie {
     public Node root, start;
     public String currentWord;
-    public ArrayList<String> dictionary; 
+    public ArrayList<Node> dictionary; 
+    public ArrayList<String> possibleGuesses;
 
     //Default constructer
     public Trie() {
         this.root = new Node();
-        this.dictionary  = new ArrayList<String>();
+        this.dictionary  = new ArrayList<Node>();
     }
 
     //Puts a given element into the TRIE using the Node class
@@ -71,7 +72,7 @@ public class Trie {
         return temp;
     }
 
-    //Find takes ina valid node and then spits out all the children with similar prefixes
+    //Find takes in a valid node and then spits out all the children with similar prefixes
     public void find(Node temp, int num) {
 
         if(temp.isFullWord == true) {
@@ -103,5 +104,11 @@ public class Trie {
         for( int i = 0;i < arr.size(); i++) {
             find(temp.children.get(arr.get(i)), num + 2);
         } 
+    }
+    
+    public ArrayList<String> getPossibleGuesses(){
+        
+        
+        return possibleGuesses;
     }
 }
