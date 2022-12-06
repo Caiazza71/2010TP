@@ -6,7 +6,6 @@
 * Maxwell Caiazza, Ava Crocker, Taylor Carlson
 */
 
-import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,13 +15,12 @@ import java.util.Iterator;
 public class Trie {
     public Node root, start;
     public String currentWord;
-    public ArrayList<Node> dictionary; 
-    public ArrayList<String> possibleGuesses;
+    public ArrayList<String> dictionary; 
 
     //Default constructer
     public Trie() {
         this.root = new Node();
-        this.dictionary  = new ArrayList<Node>();
+        this.dictionary  = new ArrayList<String>();
     }
 
     //Puts a given element into the TRIE using the Node class
@@ -40,7 +38,6 @@ public class Trie {
                 temp.parent = currentNode;
                 children.put(initial, temp);
             } else {
-                
                 temp = children.get(initial);
             }
 
@@ -49,6 +46,11 @@ public class Trie {
             if (i == wordIn.length() - 1) {
                 temp.isFullWord = true;
             }
+
+            if(temp.isFullWord && ){
+                temp.freq++;
+            }
+
         }
     }
 
@@ -79,15 +81,16 @@ public class Trie {
             Node n;
             n = temp;
             String s = currentWord;
-            LinkedList<String> finder = new LinkedList<String>(); 
+
+            ArrayList<String> finder = new ArrayList<String>(); 
 
             while(n != start) {
-                finder.push(Character.toString(n.initialC) );
+                finder.add(0,Character.toString(n.initialC) );
                 n = n.parent;
             }
 
             while(finder.size() != 0) {
-                s = s + finder.pop();
+                s = s + finder.remove(0);
             }
             dictionary.add(s);
         }
