@@ -32,6 +32,7 @@ public class SmartWord {
     int wordCnt = 0;
     Trie dictionary;
     Trie oldMess;
+    Trie newMess;
     
     String[] guesses = new String[3];  // 3 guesses from SmartWord
 
@@ -163,13 +164,11 @@ public class SmartWord {
     // c.         false               correct word
     public void feedback(boolean isCorrectGuess, String correctWord)        
     {
-        // Changes the feedback to true if the full word is present
-        if (isCorrectGuess == false) {
-            if (correctWord != null) {
-                isCorrectGuess = true;
-            }
+        if (correctWord == null) {
+            return;
         }
-        return;
+        oldMess.insert(correctWord);
+    
     }
 
 }
