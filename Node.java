@@ -9,7 +9,7 @@ public class Node implements Comparable<Node>{
     Node parent;
     HashMap<Character, Node> children = new HashMap<Character, Node>();
     char initialC;
-    boolean isFullWord = false;
+    boolean isFullWord;
     int freq = 1;
 
     // Node Constructor

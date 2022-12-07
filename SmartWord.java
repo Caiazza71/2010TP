@@ -62,6 +62,8 @@ public class SmartWord {
     // letter: letter typed in by the user
     // letterPosition:  position of the letter in the word, starts from 0
     // wordPosition: position of the word in a message, starts from 0
+    ArrayList<String> possibleGuesses;
+    
     public String[] guess(char letter,  int letterPosition, int wordPosition) {
         //If theres a new word it clears where it was
         if(wordCnt == wordPosition){ // same word found
@@ -73,7 +75,7 @@ public class SmartWord {
         
         guesses = new String[3];
         
-        ArrayList<String> possibleGuesses = trie.getPossibleGuesses(currentWord,letterPosition);
+        possibleGuesses = trie.getPossibleGuesses(currentWord,letterPosition);
         
         
         int spot = 0;
@@ -93,13 +95,13 @@ public class SmartWord {
         }
         
         //Debugging Printing That helps track what we are guessing
-        ///* 
+        /* 
         System.out.println(currentWord);
         for(String word : guesses){
             System.out.print(word +" ");
         }
         System.out.println();
-        //*/
+        */
         return guesses;
         
     }
@@ -119,19 +121,8 @@ public class SmartWord {
     // c.         false               correct word
     public void feedback(boolean isCorrectGuess, String correctWord)        
     {
-        
-        //Debugging prints
-        /*
-        System.out.println("--------");
-        System.out.println(isCorrectGuess);
-        System.out.println(correctWord);
-        System.out.println("--------");
-        */
-        
-        
         if (isCorrectGuess) { // Case A
             prevGuesses.clear();
-            System.out.println("CORRECT GUESS LFG");
             return;
         }else if(!isCorrectGuess && correctWord == null){ // Case B
             for(String word : guesses){
