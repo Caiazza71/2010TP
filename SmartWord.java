@@ -67,7 +67,7 @@ public class SmartWord {
         if(wordCnt == wordPosition){ // same word found
             currentWord += letter;
         }else{ // new word found
-            wordCnt++;
+            wordCnt = wordPosition;
             currentWord = letter + "";
         }
         
@@ -93,12 +93,13 @@ public class SmartWord {
         }
         
         //Debugging Printing That helps track what we are guessing
+        ///* 
         System.out.println(currentWord);
         for(String word : guesses){
             System.out.print(word +" ");
         }
         System.out.println();
-        
+        //*/
         return guesses;
         
     }
@@ -128,7 +129,7 @@ public class SmartWord {
         */
         
         
-        if (isCorrectGuess && correctWord != null) { // Case A
+        if (isCorrectGuess) { // Case A
             prevGuesses.clear();
             System.out.println("CORRECT GUESS LFG");
             return;

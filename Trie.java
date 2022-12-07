@@ -94,7 +94,7 @@ public class Trie {
         while( !nodeQ.isEmpty()) {
             //Removing the first node 
             current = nodeQ.remove(0);
-            if(current.isFullWord == true) {dictionary.add(temp);} // Add node to dictionary if it is a full word
+            if(current.isFullWord == true) {dictionary.add(current);} // Add node to dictionary if it is a full word
             
             //Adding all children 
             for(Node i : current.children.values()){
