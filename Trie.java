@@ -52,13 +52,14 @@ public class Trie {
             if (i == wordIn.length() - 1) {
                 temp.isFullWord = true;
             }
-
+            /* 
             if (temp.isFullWord && temp.initialC == wordIn.charAt(wordIn.length() - 1)){
                 System.out.println(wordIn + " " + temp.initialC + " " + wordIn.charAt(wordIn.length() - 1));
                 
                 temp.freq++;
                 System.out.println(temp.freq);
             }
+            */
         }
     }
 
@@ -81,27 +82,25 @@ public class Trie {
         dictionary.clear();
         return temp;
     }
-
+    
+    private ArrayList<Node> nodeQ;
     //Find takes in a valid node and then spits out all the children with similar prefixes
     public void find(Node temp, int num) {
-
-        if(temp.isFullWord == true) {
-            dictionary.add(temp);
-            return;
+        
+        nodeQ = new ArrayList<Node>();
+        nodeQ.add(temp);
+        Node current;
+        
+        while( !nodeQ.isEmpty()) {
+            //Removing the first node 
+            current = nodeQ.remove(0);
+            if(current.isFullWord == true) {dictionary.add(temp);} // Add node to dictionary if it is a full word
+            
+            //Adding all children 
+            for(Node i : current.children.values()){
+                nodeQ.add(nodeQ.size(),i);
+            }
         }
-
-        ArrayList<Character> arr = new ArrayList<Character>();
-        Set<Character> list = temp.children.keySet();
-        Iterator<Character> runner = list.iterator();
-
-        while(runner.hasNext()) {
-            Character letter = (Character)runner.next();  
-            arr.add(letter);
-        } 
-
-        for( int i = 0;i < arr.size(); i++) {
-            find(temp.children.get(arr.get(i)), num + 2);
-        } 
     }
     
     public ArrayList<String> getPossibleGuesses(String currentWord, int location){
