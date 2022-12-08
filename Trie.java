@@ -6,11 +6,9 @@
 * Maxwell Caiazza, Ava Crocker, Taylor Carlson
 */
 
-
 import java.util.ArrayList; // for arrays
 import java.util.Collections; // for sorting arrays
 
-//Imports to get rid of \/\/\/\/\/\/
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,9 +59,11 @@ public class Trie {
     }
 
     //Searching the tree when given a word to find where the children are
+    private Map<Character, Node> below;
+    
     public Node searchTrie(String word) {
         Node temp = null;
-        Map<Character, Node> below = root.children; 
+        below = root.children; 
 
         for(Character initial : word.toCharArray()){
           if(!below.containsKey(initial)){
@@ -81,12 +81,12 @@ public class Trie {
     }
     
     private ArrayList<Node> nodeQ = new ArrayList<Node>();
+    private Node current;
     //Find takes in a valid node and then spits out all the children with similar prefixes
     public void find(Node temp, int num) {
         nodeQ.clear();
         nodeQ = new ArrayList<Node>();
         nodeQ.add(temp);
-        Node current;
         
         while(!nodeQ.isEmpty()) {
             //Removing the first node
@@ -102,42 +102,21 @@ public class Trie {
         }
     }
     
-    Node newNode;
-    HashMap<String, Integer> possibleGuess;
-    int checkValue = 0;
-    String word;
-    Node temp;
-    String bestKey;
+    private Node newNode;
+    private String word;
+    private Node temp;
     
     public ArrayList<String> getPossibleGuesses(String currentWord, int location){
-        checkValue = 0;
         //Filling the dictionary of the trie with the 
         newNode = this.searchTrie(currentWord);
         //System.out.println(newNode.initialC);
         this.find(newNode, location);
         
         possibleGuesses = new ArrayList<String>(dictionary.size());
-        possibleGuess = new HashMap<String, Integer>(dictionary.size());
-
-        /* 
-        System.out.println("-----");
-        for(Node n : dictionary){
-            System.out.print("(" + n.initialC + " " + n.freq + ")");
-        }
-        System.out.println();
-
-        System.out.println("--------");
-        */
+        
         //Sorting the dictionary based on frequency
         Collections.sort(dictionary, Collections.reverseOrder());
-        /* 
-        for(Node n : dictionary){
-            System.out.print("(" + n.initialC + " " + n.freq + ")");
-        }
-        System.out.println();
-
-        System.out.println("----");
-        */
+        
         word = "";
         for(Node node : dictionary){
             temp = node;
