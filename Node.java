@@ -19,7 +19,8 @@ public class Node implements Comparable<Node>{
     public Node(char c){
         this.initialC = c;
     }
-    
+
+    // making compare func for frequency 
     public int compareTo(Node e){
         return Integer.compare(this.freq, e.freq);
     }

@@ -8,9 +8,8 @@
 
 import java.util.ArrayList; // for arrays
 import java.util.Collections; // for sorting arrays
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashMap;  // for children
+import java.util.Map;  // for children
 
 public class Trie {
     public Node root, start;
@@ -32,6 +31,7 @@ public class Trie {
         
         Node currentNode = root;
         children = root.children;
+        // taking string to node & inserting
         for (int i = 0; i < wordIn.length(); i++){
             Node temp;
             char initial = wordIn.charAt(i);
@@ -46,9 +46,13 @@ public class Trie {
 
             children = temp.children;
             currentNode = temp;
+
+            // checking for full word
             if (i == wordIn.length() - 1) {
                 temp.isFullWord = true;
             }  
+
+            // setting freq of words
             
             if(searchTrie(wordIn) != null){
                 temp.freq++;
@@ -65,6 +69,7 @@ public class Trie {
         Node temp = null;
         below = root.children; 
 
+        // changing string to nodes & searching
         for(Character initial : word.toCharArray()){
           if(!below.containsKey(initial)){
             return null;
