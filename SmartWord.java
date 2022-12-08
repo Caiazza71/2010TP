@@ -66,6 +66,7 @@ public class SmartWord {
     ArrayList<String> possibleGuesses;
     Node newNode;
     HashMap<String,Integer> hashed;
+    String bestKey = "";
     
     public String[] guess(char letter,  int letterPosition, int wordPosition) {
 
@@ -85,7 +86,24 @@ public class SmartWord {
         
         hashed = new HashMap<String, Integer>();
         for(String word : trie.dictionary){
-            
+            if(hashed.containsKey(word)){
+                hashed.replace(word, hashed.get(word)+1);
+            }else{
+                hashed.put(word, 1);
+            }
+        }
+        
+        
+        
+        while(!hashed.isEmpty()){
+            bestKey = " ";
+            for(String currentKey : hashed.keySet()){
+                if(hashed.get(bestKey) < hashed.get(currentKey)){
+                    bestKey = currentKey;
+                }   
+            }
+            possibleGuesses.add(bestKey);
+            hashed.remove(bestKey);
         }
         
         
