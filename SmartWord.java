@@ -38,7 +38,7 @@ public class SmartWord {
     public SmartWord(String wordFile) throws FileNotFoundException {
         // Creates a trie to store words
         trie = new Trie();
-        Scanner in = new Scanner(new File(wordFile));
+        Scanner in = new Scanner(new File("newWords.txt"));
 
         // Inserts the words into the trie and sorts them
         while(in.hasNext()){
@@ -65,6 +65,7 @@ public class SmartWord {
     ArrayList<String> possibleGuesses;
     
     public String[] guess(char letter,  int letterPosition, int wordPosition) {
+
         //If theres a new word it clears where it was
         if(wordCnt == wordPosition){ // same word found
             currentWord += letter;

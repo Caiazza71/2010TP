@@ -30,11 +30,8 @@ public class Trie {
 
     HashMap<Character, Node> children;
     public void insert(String wordIn) {
-        /* 
-        if(this.searchTrie(wordIn) != null){
-                this.searchTrie(wordIn).freq++;
-        }
-        */
+        
+        
         Node currentNode = root;
         children = root.children;
         for (int i = 0; i < wordIn.length(); i++){
@@ -53,16 +50,8 @@ public class Trie {
             currentNode = temp;
             if (i == wordIn.length() - 1) {
                 temp.isFullWord = true;
-                //temp.freq++;
-            }
-            /* 
-            if (temp.isFullWord && temp.initialC == wordIn.charAt(wordIn.length() - 1)){
-                System.out.println(wordIn + " " + temp.initialC + " " + wordIn.charAt(wordIn.length() - 1));
-                
-                temp.freq++;
-                System.out.println(temp.freq);
-            }
-            */
+            }      
+
         }
     }
 
@@ -94,7 +83,7 @@ public class Trie {
         nodeQ.add(temp);
         Node current;
         
-        while( !nodeQ.isEmpty()) {
+        while(!nodeQ.isEmpty()) {
             //Removing the first node
             current = nodeQ.remove(0); 
             if(current != null){            
@@ -124,7 +113,8 @@ public class Trie {
         
         possibleGuesses = new ArrayList<String>(dictionary.size());
         possibleGuess = new HashMap<String, Integer>(dictionary.size());
-        
+
+
         //Sorting the dictionary based on frequency
         Collections.sort(dictionary);
         word = "";

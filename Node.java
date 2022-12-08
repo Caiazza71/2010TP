@@ -10,7 +10,7 @@ public class Node implements Comparable<Node>{
     HashMap<Character, Node> children = new HashMap<Character, Node>();
     char initialC;
     boolean isFullWord;
-    int freq = 1;
+    int freq = 0;
 
     // Node Constructor
     public Node() {}
@@ -23,4 +23,6 @@ public class Node implements Comparable<Node>{
     public int compareTo(Node e){
         return Integer.compare(this.freq, e.freq);
     }
+
+    
 }
