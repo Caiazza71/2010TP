@@ -42,7 +42,8 @@ public class SmartWord {
 
         // Inserts the words into the trie and sorts them
         while(in.hasNext()){
-            trie.insert(in.next().replaceAll("[^a-zA-Z]",  ""));
+            
+            trie.insert(in.next().trim().replaceAll("[^a-zA-Z]",  ""));
         }
     }
 
@@ -54,7 +55,7 @@ public class SmartWord {
         // Inserts the words into the trie and sorts them
         while(scan.hasNext()) { 
             //automatically removes all extra bits from the string
-            trie.insert(scan.next().replaceAll("[^a-zA-Z]",  ""));
+            trie.insert(scan.next().trim().replaceAll("[^a-zA-Z]",  ""));
         }
     }
 

@@ -50,7 +50,12 @@ public class Trie {
             currentNode = temp;
             if (i == wordIn.length() - 1) {
                 temp.isFullWord = true;
-            }      
+            }  
+            
+            if(searchTrie(wordIn) != null){
+                temp.freq++;
+                //System.out.println(temp.freq + " " + wordIn);
+            }
 
         }
     }
@@ -114,9 +119,25 @@ public class Trie {
         possibleGuesses = new ArrayList<String>(dictionary.size());
         possibleGuess = new HashMap<String, Integer>(dictionary.size());
 
+        /* 
+        System.out.println("-----");
+        for(Node n : dictionary){
+            System.out.print("(" + n.initialC + " " + n.freq + ")");
+        }
+        System.out.println();
 
+        System.out.println("--------");
+        */
         //Sorting the dictionary based on frequency
-        Collections.sort(dictionary);
+        Collections.sort(dictionary, Collections.reverseOrder());
+        /* 
+        for(Node n : dictionary){
+            System.out.print("(" + n.initialC + " " + n.freq + ")");
+        }
+        System.out.println();
+
+        System.out.println("----");
+        */
         word = "";
         for(Node node : dictionary){
             temp = node;
