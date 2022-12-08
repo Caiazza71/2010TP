@@ -31,34 +31,31 @@ public class SmartWord {
     ArrayList<String> prevGuesses = new ArrayList<String>();
     String currentWord = "";
     int wordCnt = 0;
-    Trie dictionary;
-    Trie oldMess;
-    Trie newMess;
+    Trie trie;
     
     String[] guesses = new String[3];  // 3 guesses from SmartWord
 
     // Initialize SmartWord with a file of English words
     public SmartWord(String wordFile) throws FileNotFoundException {
         // Creates a trie to store words
-        dictionary = new Trie();
+        trie = new Trie();
         Scanner in = new Scanner(new File(wordFile));
 
         // Inserts the words into the trie and sorts them
         while(in.hasNext()){
-            dictionary.insert(in.next());
+            trie.insert(in.next());
         }
     }
 
     // process old messages from oldMessageFile
     public void processOldMessages(String oldMessageFile) throws FileNotFoundException {
         // Creates a trie to store old messages
-        oldMess = new Trie();
+        trie = new Trie();
         Scanner scans = new Scanner(new File(oldMessageFile)); 
 
         // Inserts the words into the trie and sorts them
         while(scans.hasNext()) {
-            String word = scans.next();
-            oldMess.insert(word);
+            trie.insert(scans.next());
         }
     }
 
@@ -76,71 +73,8 @@ public class SmartWord {
             currentWord = letter + "";
         }
         
-
-        if(oldMess.searchTrie(currentWord) != null) {
-        // if it finds the word in the older messages
-            Node phrase = oldMess.searchTrie(currentWord);
-            oldMess.find(phrase, 0);          
-            
-            if(oldMess.dictionary.size() > 3){ // All guesses coming from old Messages
-                ArrayList<String> words = new ArrayList<String>();
-                ArrayList<Integer> occurances = new ArrayList<Integer>();
-
-                int location;
-                // Checks to see what words come from old messages
-                for(String word : oldMess.dictionary){
-                    if(words.contains(word)){
-                        location = words.indexOf(word);
-                        occurances.add(location, occurances.get(location) + 1);
-                    }else{
-                        words.add(word);
-                        occurances.add(1);
-                    }
-                }
-
-                for(int k = 0; k < 3; k ++){
-                    int largest = 0;
-                    for(int i = 0; i < occurances.size(); i++){
-                        if(occurances.get(i) >= largest){
-                            largest = i;
-                        }
-                    }
-                    guesses[k] = words.get(largest);
-                }
-            }else{ // 1 or two guesses coming from old messages
-                int i = 0;
-                // Checks to see if there is word from old messages
-                for(String word : oldMess.dictionary){
-                    guesses[i] = word;
-                    i++;
-                }
-                phrase = dictionary.searchTrie(currentWord);
-                dictionary.find(phrase, 0);   
-                Random rand = new Random();
-                int index;
-                // Gets the remaining words from dict
-                for(; i < 3 ; i++ ){
-                    index = rand.nextInt(dictionary.dictionary.size());
-                    guesses[i] = dictionary.dictionary.get(index);
-                }
-            }
-
-        }else{ // no words found in oldMessages, so it goes to dict
-            if(dictionary.searchTrie(currentWord) != null){
-                Node phrase = dictionary.searchTrie(currentWord);
-                dictionary.find(phrase, 0);   
-                Random rand = new Random();
-                int index;
-                // Finds 3 words fomr dict to use
-                for(int i = 0; i < 3 ; i++ ){
-                    index = rand.nextInt(dictionary.dictionary.size());
-                    guesses[i] = dictionary.dictionary.get(index);
-                }
-            }
-        }
         
-        oldMess.dictionary.clear();
-        dictionary.dictionary.clear();
+        
         /*for(String word : guesses){
             System.out.print(word);
         }
