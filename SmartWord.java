@@ -63,7 +63,7 @@ public class SmartWord {
     // letter: letter typed in by the user
     // letterPosition:  position of the letter in the word, starts from 0
     // wordPosition: position of the word in a message, starts from 0
-    ArrayList<String> possibleGuesses;
+    ArrayList<String> possibleGuesses = new ArrayList<String>();
     Node newNode;
     HashMap<String,Integer> hashed;
     String bestKey = "";
@@ -94,9 +94,9 @@ public class SmartWord {
         }
         
         
-        
+       
         while(!hashed.isEmpty()){
-            bestKey = " ";
+            bestKey = hashed.keySet().iterator().next();
             for(String currentKey : hashed.keySet()){
                 if(hashed.get(bestKey) < hashed.get(currentKey)){
                     bestKey = currentKey;
@@ -131,6 +131,7 @@ public class SmartWord {
         }
         System.out.println();
         */
+        possibleGuesses.clear();
         return guesses;
         
     }
