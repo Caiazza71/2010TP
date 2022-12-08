@@ -23,7 +23,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashMap;
 
 public class SmartWord {
     
@@ -43,19 +43,19 @@ public class SmartWord {
 
         // Inserts the words into the trie and sorts them
         while(in.hasNext()){
-            trie.insert(in.next());
+            trie.insert(in.next().replaceAll("[^a-zA-Z]",  ""));
         }
     }
 
     // process old messages from oldMessageFile
     public void processOldMessages(String oldMessageFile) throws FileNotFoundException {
         // Creates a trie to store old messages
-        trie = new Trie();
-        Scanner scans = new Scanner(new File(oldMessageFile)); 
+        Scanner scan = new Scanner(new File(oldMessageFile)); 
 
         // Inserts the words into the trie and sorts them
-        while(scans.hasNext()) {
-            trie.insert(scans.next());
+        while(scan.hasNext()) { 
+            //automatically removes all extra bits from the string
+            trie.insert(scan.next().replaceAll("[^a-zA-Z]",  ""));
         }
     }
 
@@ -63,20 +63,53 @@ public class SmartWord {
     // letter: letter typed in by the user
     // letterPosition:  position of the letter in the word, starts from 0
     // wordPosition: position of the word in a message, starts from 0
-    public String[] guess(char letter,  int letterPosition, int wordPosition)
-    {
+    ArrayList<String> possibleGuesses;
+    Node newNode;
+    HashMap<String,Integer> hashed;
+    
+    public String[] guess(char letter,  int letterPosition, int wordPosition) {
+
         //If theres a new word it clears where it was
         if(wordCnt == wordPosition){ // same word found
             currentWord += letter;
         }else{ // new word found
-            wordCnt++;
+            wordCnt = wordPosition;
             currentWord = letter + "";
         }
         
+        guesses = new String[3];
+        
+        //updating dictionary in the trie
+        newNode = trie.searchTrie(currentWord);
+        trie.find(newNode, letterPosition);
+        
+        hashed = new HashMap<String, Integer>();
+        for(String word : trie.dictionary){
+            
+        }
         
         
-        /*for(String word : guesses){
-            System.out.print(word);
+        int spot = 0;
+        while(guesses[2] == null){
+            if(possibleGuesses.isEmpty()){
+                return guesses;
+            }
+            if(!prevGuesses.contains(possibleGuesses.get(0))){ // if its not in prev guesses
+                //System.out.println(possibleGuesses.get(0)); // debug
+                guesses[spot] = possibleGuesses.get(0); // adding the guess to guesses 
+                spot++; // moving the index in guesses
+                possibleGuesses.remove(0); // removes the one we just guessed
+            }else{ // If it finds the guess already in prevguesses
+                //System.out.println(possibleGuesses.get(0)); // debug
+                possibleGuesses.remove(0);
+            }
+        }
+        
+        //Debugging Printing That helps track what we are guessing
+        /* 
+        System.out.println(currentWord);
+        for(String word : guesses){
+            System.out.print(word +" ");
         }
         System.out.println();
         */
@@ -99,7 +132,7 @@ public class SmartWord {
     // c.         false               correct word
     public void feedback(boolean isCorrectGuess, String correctWord)        
     {
-        if (isCorrectGuess && correctWord != null) { // Case A
+        if (isCorrectGuess) { // Case A
             prevGuesses.clear();
             return;
         }else if(!isCorrectGuess && correctWord == null){ // Case B
